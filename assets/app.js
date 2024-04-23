@@ -22,21 +22,23 @@ const actionInputUnblock = document.getElementById('actionInputUnblock');
 const actionInputDelete = document.getElementById('actionInputDelete');
 const checkboxValues = document.querySelectorAll('.checkbox-element');
 
-const otherValues = [];
-checkboxValues.forEach((checkbox) => {
-    if (checkbox.checked) {
-        otherValues.push(checkbox.value);
-    }
-});
-
+function sendValuesArray(checkboxes) {
+    const array = [];
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            array.push(checkbox.value);
+        }
+    });
+    return array;
+}
 deleteForm.addEventListener('submit', () => {
-    actionInputDelete.value = JSON.stringify(otherValues);
+    actionInputDelete.value = JSON.stringify(sendValuesArray(checkboxValues));
 });
 
 blockForm.addEventListener('submit', () => {
-    actionInputBlock.value = JSON.stringify(otherValues);
+    actionInputBlock.value = JSON.stringify(sendValuesArray(checkboxValues));
 });
 
 unblockForm.addEventListener('submit', () => {
-    actionInputUnblock.value = JSON.stringify(otherValues);
+    actionInputUnblock.value = JSON.stringify(sendValuesArray(checkboxValues));
 });

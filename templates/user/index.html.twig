@@ -27,7 +27,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col"><input type="checkbox" id="checkbox"></th>
+                    <th scope="col"><input type="checkbox" id="checkbox" class="checkAll"></th>
                     <th scope="col">Name</th>
                     <th scope="col">e-Mail</th>
                     <th scope="col">Last login</th>
@@ -37,7 +37,7 @@
                 <tbody>
                 {% for user in users %}
                     <tr>
-                        <th scope="row"><input type="checkbox" id="checkbox1"></th>
+                        <th scope="row"><input type="checkbox" id="checkbox1" class="checkbox-element"></th>
                         <td>{{ user.name }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.dateLastLogin.format('Y-m-d H:i:s') }}</td>

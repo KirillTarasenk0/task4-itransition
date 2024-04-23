@@ -13,3 +13,30 @@ checkAll.addEventListener('change', () => {
         checkboxes[i].checked = checkAll.checked;
     }
 });
+
+const blockForm = document.getElementById('blockForm');
+const unblockForm = document.getElementById('unblockForm');
+const deleteForm = document.getElementById('deleteForm');
+const actionInputBlock = document.getElementById('actionInputBlock');
+const actionInputUnblock = document.getElementById('actionInputUnblock');
+const actionInputDelete = document.getElementById('actionInputDelete');
+const checkboxValues = document.querySelectorAll('.checkbox-element');
+
+const otherValues = [];
+checkboxValues.forEach((checkbox) => {
+    if (checkbox.checked) {
+        otherValues.push(checkbox.value);
+    }
+});
+
+deleteForm.addEventListener('submit', () => {
+    actionInputDelete.value = JSON.stringify(otherValues);
+});
+
+blockForm.addEventListener('submit', () => {
+    actionInputBlock.value = JSON.stringify(otherValues);
+});
+
+unblockForm.addEventListener('submit', () => {
+    actionInputUnblock.value = JSON.stringify(otherValues);
+});

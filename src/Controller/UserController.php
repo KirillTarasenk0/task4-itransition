@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -15,7 +16,7 @@ class UserController extends AbstractController
     {
     }
 
-    #[Route('/usersPage', name: 'app_users_page')]
+    #[Route('/usersPage', name: 'app_users_page', methods: ['GET'])]
     public function index(Security $security, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -28,22 +29,24 @@ class UserController extends AbstractController
             'users' => $this->userRepository->findAll(),
         ]);
     }
-    #[Route('/deleteUsers', name: 'delete_users')]
+    #[Route('/blockUsers', name: 'block_users', methods: ['POST'])]
     public function blockUsers(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return $this->json(['ok']);
+        return $this->redirectToRoute('app_users_page');
     }
-    #[Route('/unblockUsers', name: 'unblock_users')]
+    #[Route('/unblockUsers', name: 'unblock_users', methods: ['POST'])]
     public function unblockUsers(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return $this->json(['ok']);
+        return $this->redirectToRoute('app_users_page');
     }
-    #[Route('/deleteUsers', name: 'delete_users')]
-    public function deleteUsers(): Response
+    #[Route('/deleteUsers', name: 'delete_users', methods: ['POST'])]
+    public function deleteUsers(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return $this->json(['ok']);
+        $actionInputDeleteData = $request->request->get('actionInputDelete');
+        $deleteData = json_decode($actionInputDeleteData);
+        return $this->redirectToRoute('app_users_page');
     }
 }

@@ -18,16 +18,33 @@
                 </div>
             </div>
         </div>
-        <div>
-            <button type="button" class="btn btn-primary">Block</button>
-            <button type="button" class="btn btn-primary">UnBlock</button>
-            <button type="button" class="btn btn-danger">Delete</button>
+        <div class="d-flex">
+            <div>
+                <form action="{{ path('block_users') }}" method="post" id="blockForm">
+                    <input type="hidden" name="actionInputBlock" id="actionInputBlock" value="block">
+                    <button type="submit" class="btn btn-primary" name="action" value="block">Block</button>
+                </form>
+            </div>
+            <div>
+                <form action="{{ path('unblock_users') }}" method="post" id="unblockForm">
+                    <input type="hidden" name="actionInputUnblock" id="actionInputUnblock" value="unblock">
+                    <button type="submit" class="btn btn-primary" name="action" value="unblock">UnBlock</button>
+                </form>
+            </div>
+            <div>
+                <form action="{{ path('delete_users') }}" method="post" id="deleteForm">
+                    <input type="hidden" name="actionInputDelete" id="actionInputDelete">
+                    <button type="submit" id="deleteBtn" class="btn btn-danger" name="action" value="delete">Delete</button>
+                </form>
+            </div>
         </div>
         <div>
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col"><input type="checkbox" id="checkbox" class="checkAll"></th>
+                    <th scope="col">
+                        <input type="checkbox" id="checkbox" class="checkAll">
+                    </th>
                     <th scope="col">Name</th>
                     <th scope="col">e-Mail</th>
                     <th scope="col">Last login</th>
@@ -37,7 +54,9 @@
                 <tbody>
                 {% for user in users %}
                     <tr>
-                        <th scope="row"><input type="checkbox" id="checkbox1" class="checkbox-element"></th>
+                        <th scope="row">
+                            <input type="checkbox" name="users[]" value="{{ user.id }}" class="checkbox-element">
+                        </th>
                         <td>{{ user.name }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.dateLastLogin.format('Y-m-d H:i:s') }}</td>

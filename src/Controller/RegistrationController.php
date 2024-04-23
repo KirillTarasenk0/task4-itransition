@@ -14,31 +14,27 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
+    #[Route('/', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
-
             $user->setStatus('active');
+            $user->setDateRegister(new \DateTime());
+            $user->setDateLastLogin(new \DateTime());
             $entityManager->persist($user);
             $entityManager->flush();
-
-            // do anything else you need here, like send an email
-
-            return $security->login($user, 'form_login', 'main');
+            $security->login($user, 'form_login', 'main');
+            return $this->redirectToRoute('app_users_page');
         }
-
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,
         ]);

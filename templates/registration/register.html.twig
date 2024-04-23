@@ -3,17 +3,30 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-6">
+                <h1 class="mb-4">Register</h1>
 
-    {{ form_errors(registrationForm) }}
+                {{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.name) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
+                {{ form_start(registrationForm) }}
+                <div class="form-group">
+                    {{ form_label(registrationForm.name) }}
+                    {{ form_widget(registrationForm.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(registrationForm.email) }}
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(registrationForm.plainPassword, 'Password') }}
+                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                <button type="submit" class="btn btn-primary">Register</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

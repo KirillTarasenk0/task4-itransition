@@ -11,8 +11,6 @@ FROM dunglas/frankenphp:1-php8.3 AS frankenphp_upstream
 # Base FrankenPHP image
 FROM frankenphp_upstream AS frankenphp_base
 
-FROM mysql/mysql-server:8.0.17
-
 WORKDIR /app
 
 # persistent / runtime deps
@@ -37,8 +35,6 @@ RUN set -eux; \
         mysqli \
         pdo_mysql \
 	;
-
-RUN mkdir -p /var/lib/mysql/backups
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -74,11 +70,6 @@ RUN set -eux; \
 COPY --link frankenphp/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
 
 CMD [ "frankenphp", "run", "--config", "/etc/caddy/Caddyfile", "--watch" ]
-
-CMD mysqldump -h "127.0.0.1" -u "root" --password="root" \
-    --single-transaction \
-    --result-file=/var/lib/mysql/backups/backup.$(date +%F.%T).sql \
-    --all-databases
 
 # Prod FrankenPHP image
 FROM frankenphp_base AS frankenphp_prod

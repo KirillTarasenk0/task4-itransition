@@ -23,7 +23,7 @@
                     {{ form_label(registrationForm.plainPassword, 'Password') }}
                     {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
                 </div>
-
+                <div><a class="btn btn-link" href="{{ path('app_login') }}">Already have an account? Click Here!</a></div>
                 <button type="submit" class="btn btn-primary">Register</button>
                 {{ form_end(registrationForm) }}
             </div>

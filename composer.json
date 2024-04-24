@@ -24,7 +24,8 @@
         "symfony/validator": "7.0.*",
         "symfony/yaml": "7.0.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "symfony/maker-bundle": "^1.58"
     },
     "config": {
         "allow-plugins": {
@@ -75,8 +76,5 @@
             "allow-contrib": false,
             "require": "7.0.*"
         }
-    },
-    "require-dev": {
-        "symfony/maker-bundle": "^1.58"
     }
 }

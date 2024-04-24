@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
         unzip \
         libpng-dev \
         libonig-dev \
-        libpq-dev \   # Добавляем libpq-dev для установки драйвера PostgreSQL
+        libpq-dev \
         libxml2-dev \
         zip \
         curl \
@@ -28,6 +28,9 @@ WORKDIR /var/www
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader
 RUN composer require symfony/maker-bundle
+
+# Устанавливаем зависимости Composer
+
 
 # Копируем конфигурацию nginx в контейнер
 COPY nginx.conf /etc/nginx/nginx.conf
